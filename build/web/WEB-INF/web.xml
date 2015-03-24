@@ -9,16 +9,15 @@
         <servlet-class>serlets.Entrance</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ServletOne</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Entrance</servlet-name>
-        <url-pattern>/ControllerLogin</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>viewLogin.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

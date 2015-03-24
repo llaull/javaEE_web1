@@ -46,12 +46,12 @@
       <form class="form-signin" role="form" method="POST" action="login">
           <h2>Form</h2>
         <div class="form-group">
-          <label for="email">User</label>
-          <input type="input" class="form-control" id="email" placeholder="Enter User">
+          <label for="user">User</label>
+          <input type="input" class="form-control" id="user" name="user" placeholder="Enter User">
         </div>
         <div class="form-group">
-          <label for="pwd">Password</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+          <label for="pass">Password</label>
+          <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter password">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
         <% if (request.getAttribute("error")!=null) { %>
