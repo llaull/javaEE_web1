@@ -2,6 +2,7 @@ package serlets;
 
 import java.io.IOException;
 import static java.lang.System.out;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +17,33 @@ public class Entrance extends HttpServlet {
     
     private String name = "laul";
     private String pass = "1234";
+    HttpSession session;
 
+    @Override
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+       
+    }
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //en test
+        if(session == null){
+            out.println("0");
+        } else {
+            out.println("1");            
+        }
+        
+       /* if(session == null){
+            out.println("getAttribute");
+            request.getRequestDispatcher("viewAdmin.jsp").forward(request, response);
+        } else {*/
         request.getRequestDispatcher("viewLogin.jsp").forward(request, response);
         out.println("get");
+       // }
         
     }
 
@@ -35,7 +56,7 @@ public class Entrance extends HttpServlet {
         if (request.getParameter("user").equals(name) && request.getParameter("pass").equals(pass)) {
             
             out.println("ok");
-            HttpSession session = request.getSession(true);
+            session = request.getSession(true);
             session.setAttribute("ok", "ok");
             request.getRequestDispatcher("viewAdmin.jsp").forward(request, response);
             

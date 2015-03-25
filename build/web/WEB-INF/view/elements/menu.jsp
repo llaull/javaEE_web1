@@ -5,13 +5,13 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">News</a></li>
-        <li><a href="#">Categories</a></li>
-        <li><a href="#">Tags</a></li>
+        <li><a href="<%=application.getContextPath()%>/news">News</a></li>
+        <li><a href="<%=application.getContextPath()%>/categories">Categories</a></li>
+        <li><a href="<%=application.getContextPath()%>/tags">Tags</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="<%=application.getContextPath()%>/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+        <li><a href="<%=application.getContextPath()%>/deco"><span class="glyphicon glyphicon-log-in"></span> Deco</a></li>
       </ul>
     </div>
   </div>

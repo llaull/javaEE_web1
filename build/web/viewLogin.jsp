@@ -57,6 +57,9 @@
         <% if (request.getAttribute("error")!=null) { %>
         <div>Error !</div>
         <% } %>
+        <% if (session !=null) { %>
+                <div>ok !</div>
+        <% } %>
       </form>
     </div>
 
