@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Arkesys
  */
-@WebServlet(name = "InsideServlet", urlPatterns = {"/login","/categories","/tags","/news"})
+@WebServlet(name = "InsideServlet", urlPatterns = {"/inside","/categories","/tags","/news"})
 public class InsideServlet extends HttpServlet {
 
 

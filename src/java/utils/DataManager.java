@@ -45,7 +45,7 @@ public class DataManager {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.out.println("blbl" + e.getMessage());
+                System.out.println("blbl" + toString());
             }
             
         }
