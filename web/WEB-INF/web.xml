@@ -7,6 +7,22 @@
     <servlet>
         <servlet-name>Entrance</servlet-name>
         <servlet-class>serlets.Entrance</servlet-class>
+        <init-param>
+            <param-name>jdbcDriver</param-name>
+            <param-value>com.mysql.jdbc.Driver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbURL</param-name>
+            <param-value>jdbc:mysql://localhost:3306/news_db</param-value>         
+        </init-param>
+        <init-param>
+            <param-name>dbUserName</param-name>
+            <param-value>laul</param-value>         
+        </init-param>        
+        <init-param>
+            <param-name>dbPassword</param-name>
+            <param-value>1234</param-value>         
+        </init-param>        
     </servlet>
     <servlet-mapping>
         <servlet-name>Entrance</servlet-name>
@@ -20,4 +36,8 @@
     <welcome-file-list>
         <welcome-file>viewLogin.jsp</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/error/404.jsp</location>
+    </error-page>
 </web-app>

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Arkesys
  */
-@WebServlet(name = "InsideServlet", urlPatterns = {"/inside","/categories","/tags","/news"})
+@WebServlet(name = "InsideServlet", urlPatterns = {"/login","/categories","/tags","/news"})
 public class InsideServlet extends HttpServlet {
 
 
@@ -47,18 +47,17 @@ public class InsideServlet extends HttpServlet {
             System.out.println("ok");
             
             //gestions des pages/categories
-            if (chemin.equals("/login") || chemin.equals("/categories")) {
-                
-                request.getRequestDispatcher("/WEB-INF/view/categories/index.jsp").forward(request, response);
-                
-            } else if(chemin.equals("/news")){
-                
-                request.getRequestDispatcher("/WEB-INF/view/news/index.jsp").forward(request, response);
-                
-            } else if(chemin.equals("/tags")){
-                
-                request.getRequestDispatcher("/WEB-INF/view/tags/index.jsp").forward(request, response);
-                
+            switch (chemin) {
+                case "/login":
+                case "/categories":
+                    request.getRequestDispatcher("/WEB-INF/view/categories/index.jsp").forward(request, response);
+                    break;
+                case "/news":
+                    request.getRequestDispatcher("/WEB-INF/view/news/index.jsp").forward(request, response);
+                    break;
+                case "/tags":
+                    request.getRequestDispatcher("/WEB-INF/view/tags/index.jsp").forward(request, response);
+                    break;
             }
             
             

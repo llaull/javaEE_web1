@@ -1,6 +1,9 @@
 package utils;
 
 import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,13 +17,38 @@ public class DataManager {
 
     public DataManager() {}
 
+    /**
+     * connexion
+     * @return 
+     */
+    public Connection getConnection(){
+        Connection conn = null;
         
-//    public Connection getConnection(){
-//        
-//        return conn;
-//    }
+        try {
+            
+            conn = DriverManager.getConnection(getDbURL(),getDbUserName(),getDbPassword());
+            
+        } catch (SQLException e) {
+            
+            System.out.println("connection impossible :" + e.getMessage());
+        }
+        
+        return conn;
+    }
     
-    public  void closeConnection(Connection conn){
+    /**
+     * 
+     * @param conn 
+     */
+    public void closeConnection(Connection conn){
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("blbl" + e.getMessage());
+            }
+            
+        }
         
     }
     
