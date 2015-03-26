@@ -6,22 +6,22 @@
 package serlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.DataManager;
 
 /**
  *
  * @author Arkesys
  */
 @WebServlet(name = "InsideServlet", urlPatterns = {"/inside","/categories","/tags","/news"})
+
 public class InsideServlet extends HttpServlet {
-
-
 
 
     @Override
@@ -34,7 +34,15 @@ public class InsideServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // connexion 
+        DataManager dataManager = (DataManager)this.getServletContext().getAttribute("dataManager");
         
+        Connection conn = dataManager.getConnection();
+        
+        System.out.println("conn " + conn);
+        
+        //check session et chemin
         String chemin = request.getServletPath();
         System.out.println("chemin =" + chemin);
         
@@ -71,11 +79,7 @@ public class InsideServlet extends HttpServlet {
                     
         
         
-//        DataManager dataManager = (DataManager)this.getServletContext().getAttribute("dataManger");
-//        
-//        Connection conn = dataManager.getConnection();
-//        
-//        System.out.println("conn " + conn);
+
 //        
 //        if (session != null && session.getAttribute("ok")!= null) {
 //            System.out.println("ok");
