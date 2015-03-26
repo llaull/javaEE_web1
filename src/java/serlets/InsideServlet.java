@@ -5,14 +5,18 @@
  */
 package serlets;
 
+import beans.Categorie;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.CategorieModel;
 import utils.DataManager;
 
 /**
@@ -58,7 +62,14 @@ public class InsideServlet extends HttpServlet {
             switch (chemin) {
                 case "/login":
                 case "/categories":
+
+                    List<Categorie> categories = new ArrayList<>();
+                    categories = CategorieModel.getCategories(conn);
+                    System.out.println("cat = " + categories.size());
+                    request.setAttribute("listeCategorie", categories);
+                    
                     request.getRequestDispatcher("/WEB-INF/view/categories/index.jsp").forward(request, response);
+  
                     break;
                 case "/news":
                     request.getRequestDispatcher("/WEB-INF/view/news/index.jsp").forward(request, response);

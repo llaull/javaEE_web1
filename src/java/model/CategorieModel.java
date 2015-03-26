@@ -21,7 +21,7 @@ public class CategorieModel {
     
     public static List<Categorie> getCategories(Connection con){
 
-	String sql = "select * form categorie";
+	String sql = "SELECT * FROM categories";
 
 	List<Categorie> categories = new ArrayList<>();
 
