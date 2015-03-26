@@ -13,16 +13,16 @@
         </init-param>
         <init-param>
             <param-name>dbURL</param-name>
-            <param-value>jdbc:mysql://localhost:3306/news_db</param-value>         
+            <param-value>jdbc:mysql://localhost:3306/news_db</param-value>
         </init-param>
         <init-param>
             <param-name>DbUserName</param-name>
-            <param-value>laul</param-value>         
-        </init-param>        
+            <param-value>laul</param-value>
+        </init-param>
         <init-param>
             <param-name>dbPassword</param-name>
-            <param-value>1234</param-value>         
-        </init-param>        
+            <param-value>1234</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Entrance</servlet-name>
