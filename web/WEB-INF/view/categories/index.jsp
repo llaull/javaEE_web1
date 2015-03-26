@@ -13,13 +13,13 @@
       </tr>
     </thead>
     <tbody>
-   <c:forEach var="row" items="${requestScope.listeCategorie}">
+   <c:forEach var="row" items="${requestScope.liste}">
     <tr>
         <td>${row.id_categorie}</td>
         <td>${row.libelle}</td>
         <td>
-            <button type="button" class="btn btn-warning btn-sm">Editer</button>
-            <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
+            <a href="<%=application.getContextPath()%>/datasCategorie?action=1&id=${row.id_categorie}"><button type="button" class="btn btn-warning btn-sm">Editer</button></a>
+            <a href="<%=application.getContextPath()%>/datasCategorie?action=2&id=${row.id_categorie}"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>
         </td>
     </tr>
     </c:forEach>

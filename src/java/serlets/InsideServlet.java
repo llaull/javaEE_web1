@@ -6,6 +6,8 @@
 package serlets;
 
 import beans.Categorie;
+import beans.News;
+import beans.Tags;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CategorieModel;
+import model.NewsModel;
+import model.TagsModel;
 import utils.DataManager;
 
 /**
@@ -66,15 +70,27 @@ public class InsideServlet extends HttpServlet {
                     List<Categorie> categories = new ArrayList<>();
                     categories = CategorieModel.getCategories(conn);
                     System.out.println("cat = " + categories.size());
-                    request.setAttribute("listeCategorie", categories);
+                    request.setAttribute("liste", categories);
                     
                     request.getRequestDispatcher("/WEB-INF/view/categories/index.jsp").forward(request, response);
   
                     break;
                 case "/news":
+                    
+                    List<News> news = new ArrayList<>();
+                    news = NewsModel.getNews(conn);
+                    System.out.println("cat = " + news.size());
+                    request.setAttribute("liste", news);
+                    
                     request.getRequestDispatcher("/WEB-INF/view/news/index.jsp").forward(request, response);
                     break;
                 case "/tags":
+                    
+                    List<Tags> tags = new ArrayList<>();
+                    tags = TagsModel.getTags(conn);
+                    System.out.println("cat = " + tags.size());
+                    request.setAttribute("liste", tags);
+                    
                     request.getRequestDispatcher("/WEB-INF/view/tags/index.jsp").forward(request, response);
                     break;
             }

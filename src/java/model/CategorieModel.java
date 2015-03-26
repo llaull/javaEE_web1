@@ -19,6 +19,114 @@ import java.util.List;
  */
 public class CategorieModel {
     
+    /**
+     * SELECT
+     * @param con
+     * @param cat 
+     */
+     public static void getCategorieByid(Connection con, Categorie cat){
+         
+         String sql = "SELECT * FROM categories where id_categorie=?";
+         
+         try {
+             
+             PreparedStatement stmt = con.prepareStatement(sql);
+             
+             stmt.setLong(1, cat.getId_categorie());
+             System.out.println("categorie selectionner " + cat.getId_categorie());
+             try {
+                 ResultSet rs = stmt.executeQuery();
+                 
+                 try {
+                     
+                     while (rs.next()) {
+                         
+                         cat.setLibelle(rs.getString("libelle"));
+                         
+                     }
+                     
+                 } finally{rs.close();}
+                 
+             }finally{stmt.close();}
+             
+         } catch (SQLException e) {
+             System.out.println("ex " + e);
+         }
+     
+     }
+    
+     /**
+      * UPDATE
+      * @param con
+      * @param cat 
+      */
+    public static void modifyCategorie(Connection con, Categorie cat){
+         
+         String sql = "update categories set libelle=? WHERE id_categorie=?";
+         
+         try {
+             
+             PreparedStatement stmt = con.prepareStatement(sql);
+             
+             stmt.setString(1, cat.getLibelle());
+             stmt.setLong(2, cat.getId_categorie());
+             stmt.executeQuery();
+             
+         } catch (SQLException e) {
+             System.out.println("ex " + e);
+         }
+     
+     }     
+    
+    /**
+     * INSERT
+     * @param con
+     * @param cat 
+     */
+    public static void insertCategorie(Connection con, Categorie cat){
+         
+         String sql = "insert into categories (libelle) values (?)";
+         
+         try {
+             
+             PreparedStatement stmt = con.prepareStatement(sql);
+             
+             stmt.setString(1, cat.getLibelle());
+             stmt.executeUpdate(sql);
+             
+         } catch (SQLException e) {
+             System.out.println("ex " + e);
+         }
+     
+     }
+
+    /***
+     * delete
+     * @param con
+     * @param cat 
+     */
+    public static void deleteCategorie(Connection con, Categorie cat){
+         
+         String sql = "delete FROM categories WHERE id_categorie=?";
+         
+         try {
+             
+             PreparedStatement stmt = con.prepareStatement(sql);
+             
+             stmt.setLong(1, cat.getId_categorie());
+             stmt.executeUpdate(sql);
+             
+         } catch (SQLException e) {
+             System.out.println("ex " + e);
+         }
+     
+     }
+    
+    /**
+     * SELECT fetch
+     * @param con
+     * @return 
+     */
     public static List<Categorie> getCategories(Connection con){
 
 	String sql = "SELECT * FROM categories";
