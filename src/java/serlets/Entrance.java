@@ -22,7 +22,7 @@ public class Entrance extends HttpServlet {
 
     /**
      * 
-     * @param configs
+     * @param config
      * @throws ServletException 
      */
     @Override
