@@ -6,7 +6,7 @@
 
 	<h1>Datas Catégories</h1>
 
-	<a href="<%=application.getContextPath()%>/categories"><button type="button" class="btn btn-warning">Annuler</button></a>
+	
 
 	<c:if test="${param.action == 1 || param.action == 2}">
             
@@ -30,24 +30,26 @@
                     </div>
 
 			<button type="submit" class="btn btn-success">Submit</button>
-
+                        <a href="<%=application.getContextPath()%>/categories"><button type="button" class="btn btn-warning">Annuler</button></a>
 		</form>
+                    
 
 		</c:if>
 
-		<c:if test="${param.action == 3}">
+	<c:if test="${param.action == 3}">
 
-			<div>suppression  : ${requestScope.cat.value}</div>
-			<form action="<%=application.getContextPath()%>/datasCategories" method="post">
+            <div>suppression  : <strong>${requestScope.cat.value}</strong></div>
+            <form action="<%=application.getContextPath()%>/datasCategorie" method="post">
 
-			<input type="hidden" name="id_categorie" value="${requestScope.cat.id}"/>
-			<input type="hidden" name="action" value="${param.action}"/>
+                <input type="hidden" name="id" value="${requestScope.cat.id}"/>
+                <input type="hidden" name="action" value="${param.action}"/>
 
-			<input type="hidden" name="value" value="${requestScope.cat.value}"/>
+                <input type="hidden" name="value" value="${requestScope.cat.value}"/>
 
-			<input type="submit" value="go  ! "/>
+                <button type="submit" class="btn btn-success">Confirmer</button>
+                <a href="<%=application.getContextPath()%>/categories"><button type="button" class="btn btn-warning">Annuler</button></a>
 
-		</form>
+            </form>
 
 	</c:if>
 

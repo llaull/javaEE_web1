@@ -40,5 +40,4 @@ public class Categorie implements Serializable{
         this.value = value;
     }
 
-    
 }

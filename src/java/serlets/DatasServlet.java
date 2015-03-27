@@ -59,10 +59,22 @@ public class DatasServlet extends HttpServlet {
                             cat.setId(Integer.parseInt(request.getParameter("id")));
                             cat.setValue(request.getParameter("value"));
                             
-                            CategorieModel.getCategorieByid(conn, cat);
+                            CategorieModel.getCategorieByid(conn, cat, "categories");
                             System.out.println("->" + request.getParameter("id"));
                             System.out.println("->" + request.getParameter("value"));
                             request.setAttribute("cat", cat);
+                            break;
+                        case 3:
+                            System.out.println("3");
+                            cat = new Categorie();
+                            cat.setId(Integer.parseInt(request.getParameter("id")));
+                            cat.setValue(request.getParameter("value"));
+                            
+                            CategorieModel.getCategorieByid(conn, cat, "categories");
+                            System.out.println("->" + request.getParameter("id"));
+                            System.out.println("->" + request.getParameter("value"));
+                            request.setAttribute("cat", cat);
+                            
                             break;
                               
                     }
@@ -119,8 +131,15 @@ public class DatasServlet extends HttpServlet {
                             
                         System.out.println("id cat -> " + cat.getId() + " < label > " + cat.getValue());
                         CategorieModel.modifyCategorie(conn, cat);
+                    break;
+                    case 3:
+                        System.out.println("3 - delation");
+                        
+                        cat.setId(Integer.parseInt(request.getParameter("id")));
+                        CategorieModel.deleteCategorie(conn, cat);
+                        //System.out.println("id cat ->"+ cat.getId());
                     break;                        
-                              
+                        
                 }        
                     
                     
@@ -128,7 +147,7 @@ public class DatasServlet extends HttpServlet {
             
         }//patern
         
-        
+        request.getRequestDispatcher("/categories").forward(request, response);
     }
 
     

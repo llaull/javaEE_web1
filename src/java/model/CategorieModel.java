@@ -24,9 +24,9 @@ public class CategorieModel {
      * @param con
      * @param cat 
      */
-     public static void getCategorieByid(Connection con, Categorie cat){
+     public static void getCategorieByid(Connection con, Categorie cat, String table){
          
-         String sql = "SELECT * FROM categories where id=?";
+         String sql = "SELECT * FROM "+table+" where id=?";
          
          try {
              
@@ -112,7 +112,7 @@ public class CategorieModel {
      */
     public static void deleteCategorie(Connection con, Categorie cat){
          
-         String sql = "delete FROM categories WHERE id=?";
+        String sql = "DELETE FROM categories WHERE id=?";
          
          try {
              
@@ -120,6 +120,7 @@ public class CategorieModel {
              
              stmt.setLong(1, cat.getId());
              stmt.executeUpdate();
+             System.out.println("del -> " + cat.getId());
              
          } catch (SQLException e) {
              System.out.println("ex " + e);
