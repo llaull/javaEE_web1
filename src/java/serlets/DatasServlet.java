@@ -56,12 +56,17 @@ public class DatasServlet extends HttpServlet {
                         case 2:
                             System.out.println("2");
                             cat = new Categorie();
-                            cat.setId_categorie(Integer.parseInt(request.getParameter("id")));
+                            cat.setId(Integer.parseInt(request.getParameter("id")));
+                            cat.setValue(request.getParameter("value"));
+                            
                             CategorieModel.getCategorieByid(conn, cat);
+                            System.out.println("->" + request.getParameter("id"));
                             request.setAttribute("cat", cat);
                             break;
                               
                     }
+                    
+                    request.getRequestDispatcher("/WEB-INF/view/categories/datas.jsp").forward(request, response);
                     
                 }//action
                 
@@ -78,6 +83,47 @@ public class DatasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("doPost");
+        
+        DataManager dataManager = (DataManager)this.getServletContext().getAttribute("dataManager");
+        
+        Connection conn = dataManager.getConnection();
+
+        HttpSession session = request.getSession();
+        
+        String path = request.getServletPath();
+        if (path.equals("/datasCategorie")) {
+            
+            //instance de l'entité concernnné
+            Categorie cat = new Categorie();
+            
+            //nourriture de l'obet depuis le formulaire
+            cat.setValue(request.getParameter("value"));
+            
+            if(request.getParameter("action") != null){
+                
+                switch(Integer.parseInt(request.getParameter("action"))){
+                        
+                    case 1:
+                        System.out.println("1 - insert");
+                        CategorieModel.insertCategorie(conn, cat);
+                        //System.out.println("id cat ->"+ cat.getId());
+                    break;
+                    case 2:
+                        System.out.println("2 - update");
+                        CategorieModel.modifyCategorie(conn, cat);
+                        System.out.println("id cat ->"+ cat.getId());
+                    break;                        
+                              
+                }        
+                    
+                    
+            }//action
+            
+        }//patern
+        
+        
     }
 
     

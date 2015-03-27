@@ -7,38 +7,38 @@ import java.io.Serializable;
  */
 public class Categorie implements Serializable{
     
-    private long id_categorie;
-    private String libelle;
+    private int id;
+    private String value;
 
     public Categorie() {}
-    
 
     /**
-     * @return the id_categorie
+     * @return the id
      */
-    public long getId_categorie() {
-        return id_categorie;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param id_categorie the id_categorie to set
+     * @param id the id to set
      */
-    public void setId_categorie(long id_categorie) {
-        this.id_categorie = id_categorie;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
-     * @return the libelle
+     * @return the value
      */
-    public String getLibelle() {
-        return libelle;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * @param libelle the libelle to set
+     * @param value the value to set
      */
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setValue(String value) {
+        this.value = value;
     }
+
     
 }

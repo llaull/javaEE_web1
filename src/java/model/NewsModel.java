@@ -17,7 +17,7 @@ public class NewsModel {
     
      public static List<News> getNews(Connection con){
 
-	String sql = "SELECT * FROM newz as news";
+	String sql = "SELECT * FROM news";
 
 	List<News> News = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class NewsModel {
 				while (rs.next()){
 
 					News n = new News();                                        
-					n.setId_news(rs.getInt("id_news"));
+					n.setId(rs.getInt("id"));
 					n.setTitre(rs.getString("titre"));
 
 					News.add(n); //ajout à l'arraylist

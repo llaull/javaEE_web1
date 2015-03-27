@@ -8,43 +8,40 @@ import java.io.Serializable;
  */
 public class Tags implements Serializable{
 
-    public static void add(Tags t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private long id_tag;
-    private String libelle;
+    private int id;
+    private String value;
 
     public Tags() {
     }
 
     /**
-     * @return the id_tag
+     * @return the id
      */
-    public long getId_tag() {
-        return id_tag;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param id_tag the id_tag to set
+     * @param id the id to set
      */
-    public void setId_tag(long id_tag) {
-        this.id_tag = id_tag;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
-     * @return the libelle
+     * @return the value
      */
-    public String getLibelle() {
-        return libelle;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * @param libelle the libelle to set
+     * @param value the value to set
      */
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setValue(String value) {
+        this.value = value;
     }
+
     
     
     

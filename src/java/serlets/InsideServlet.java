@@ -102,28 +102,7 @@ public class InsideServlet extends HttpServlet {
             request.getRequestDispatcher("/login").forward(request, response);
             
         }//fin session 
-        
-                    
-        
-        
 
-//        
-//        if (session != null && session.getAttribute("ok")!= null) {
-//            System.out.println("ok");
-//            
-//            if (chemin.equals("/inside")|| chemin.equals("/categorie")) {
-//                
-//                List<Categorie> categories = new ArrayList<>();
-//                categorie = CategorieManager.getCategories(conn);
-//                System.out.println("cat = " + categories.size());
-//                
-//                resq
-//            }
-//            
-//        } else {
-//            
-//        }
     }
-
 
 }

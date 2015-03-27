@@ -32,8 +32,8 @@ public class TagsModel {
 				while (rs.next()){
 
 					Tags t = new Tags();                                        
-					t.setId_tag(rs.getInt("id_tag"));
-					t.setLibelle(rs.getString("libelle"));
+					t.setId(rs.getInt("id"));
+					t.setValue(rs.getString("value"));
 
 					Tags.add(t); //ajout à l'arraylist
 

@@ -32,8 +32,8 @@ public class CategorieModel {
              
              PreparedStatement stmt = con.prepareStatement(sql);
              
-             stmt.setLong(1, cat.getId_categorie());
-             System.out.println("categorie selectionner " + cat.getId_categorie());
+             stmt.setLong(1, cat.getId());
+             System.out.println("categorie selectionner " + cat.getId());
              try {
                  ResultSet rs = stmt.executeQuery();
                  
@@ -41,7 +41,7 @@ public class CategorieModel {
                      
                      while (rs.next()) {
                          
-                         cat.setLibelle(rs.getString("libelle"));
+                         cat.setValue(rs.getString("libelle"));
                          
                      }
                      
@@ -62,14 +62,14 @@ public class CategorieModel {
       */
     public static void modifyCategorie(Connection con, Categorie cat){
          
-         String sql = "update categories set libelle=? WHERE id_categorie=?";
+         String sql = "update categories set value=? WHERE id=?";
          
          try {
              
              PreparedStatement stmt = con.prepareStatement(sql);
              
-             stmt.setString(1, cat.getLibelle());
-             stmt.setLong(2, cat.getId_categorie());
+             stmt.setString(1, cat.getValue());
+             stmt.setLong(2, cat.getId());
              stmt.executeQuery();
              
          } catch (SQLException e) {
@@ -85,14 +85,17 @@ public class CategorieModel {
      */
     public static void insertCategorie(Connection con, Categorie cat){
          
-         String sql = "insert into categories (libelle) values (?)";
+         String sql = "insert into categories (value) values (?)";
+         //String sql = "INSERT INTO categories (value) VALUES ('coucou')";
+
          
          try {
              
              PreparedStatement stmt = con.prepareStatement(sql);
              
-             stmt.setString(1, cat.getLibelle());
-             stmt.executeUpdate(sql);
+             stmt.setString(1, cat.getValue());
+             System.out.println("ajout -> " + cat.getValue());
+             stmt.executeUpdate();
              
          } catch (SQLException e) {
              System.out.println("ex " + e);
@@ -107,14 +110,14 @@ public class CategorieModel {
      */
     public static void deleteCategorie(Connection con, Categorie cat){
          
-         String sql = "delete FROM categories WHERE id_categorie=?";
+         String sql = "delete FROM categories WHERE id=?";
          
          try {
              
              PreparedStatement stmt = con.prepareStatement(sql);
              
-             stmt.setLong(1, cat.getId_categorie());
-             stmt.executeUpdate(sql);
+             stmt.setLong(1, cat.getId());
+             stmt.executeUpdate();
              
          } catch (SQLException e) {
              System.out.println("ex " + e);
@@ -145,8 +148,8 @@ public class CategorieModel {
 				while (rs.next()){
 
 					Categorie cat = new Categorie();                                        
-					cat.setId_categorie(rs.getInt("Id_categorie"));
-					cat.setLibelle(rs.getString("libelle"));
+					cat.setId(rs.getInt("id"));
+					cat.setValue(rs.getString("value"));
 
 					categories.add(cat); //ajout à l'arraylist
 

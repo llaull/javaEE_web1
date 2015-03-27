@@ -15,11 +15,11 @@
     <tbody>
    <c:forEach var="row" items="${requestScope.liste}">
     <tr>
-        <td>${row.id_news}</td>
+        <td>${row.id}</td>
         <td>${row.titre}</td>
         <td>
-            <a href="<%=application.getContextPath()%>/datasCategorie?action=1&id=${row.id_news}"><button type="button" class="btn btn-warning btn-sm">Editer</button></a>
-            <a href="<%=application.getContextPath()%>/datasCategorie?action=2&id=${row.id_news}"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>
+            <a href="<%=application.getContextPath()%>/datasCategorie?action=1&id=${row.id}"><button type="button" class="btn btn-warning btn-sm">Editer</button></a>
+            <a href="<%=application.getContextPath()%>/datasCategorie?action=2&id=${row.id}"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>
         </td>
     </tr>
     </c:forEach>

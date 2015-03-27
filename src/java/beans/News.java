@@ -9,26 +9,25 @@ import java.io.Serializable;
  */
 public class News implements Serializable{
 
-    private long id_news;
+    private int id;
     private String titre;
-    private String legende;
+    private String txt;
 
     public News() {
     }
 
-    
     /**
-     * @return the id_news
+     * @return the id
      */
-    public long getId_news() {
-        return id_news;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param id_news the id_news to set
+     * @param id the id to set
      */
-    public void setId_news(long id_news) {
-        this.id_news = id_news;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -46,17 +45,20 @@ public class News implements Serializable{
     }
 
     /**
-     * @return the legende
+     * @return the txt
      */
-    public String getLegende() {
-        return legende;
+    public String getTxt() {
+        return txt;
     }
 
     /**
-     * @param legende the legende to set
+     * @param txt the txt to set
      */
-    public void setLegende(String legende) {
-        this.legende = legende;
+    public void setTxt(String txt) {
+        this.txt = txt;
     }
+
+    
+   
     
 }
