@@ -26,13 +26,13 @@ public class CategorieModel {
      */
      public static void getCategorieByid(Connection con, Categorie cat){
          
-         String sql = "SELECT * FROM categories where id_categorie=?";
+         String sql = "SELECT * FROM categories where id=?";
          
          try {
              
              PreparedStatement stmt = con.prepareStatement(sql);
              
-             stmt.setLong(1, cat.getId());
+             stmt.setInt(1, cat.getId());
              System.out.println("categorie selectionner " + cat.getId());
              try {
                  ResultSet rs = stmt.executeQuery();
@@ -41,7 +41,7 @@ public class CategorieModel {
                      
                      while (rs.next()) {
                          
-                         cat.setValue(rs.getString("libelle"));
+                         cat.setValue(rs.getString("value"));
                          
                      }
                      
@@ -62,7 +62,9 @@ public class CategorieModel {
       */
     public static void modifyCategorie(Connection con, Categorie cat){
          
-         String sql = "update categories set value=? WHERE id=?";
+         //String sql = "update categories set value=? WHERE id=?";
+         String sql = "UPDATE categories SET value=? WHERE id=?";
+
          
          try {
              
@@ -70,7 +72,7 @@ public class CategorieModel {
              
              stmt.setString(1, cat.getValue());
              stmt.setLong(2, cat.getId());
-             stmt.executeQuery();
+             stmt.executeUpdate();
              
          } catch (SQLException e) {
              System.out.println("ex " + e);

@@ -61,6 +61,7 @@ public class DatasServlet extends HttpServlet {
                             
                             CategorieModel.getCategorieByid(conn, cat);
                             System.out.println("->" + request.getParameter("id"));
+                            System.out.println("->" + request.getParameter("value"));
                             request.setAttribute("cat", cat);
                             break;
                               
@@ -112,8 +113,12 @@ public class DatasServlet extends HttpServlet {
                     break;
                     case 2:
                         System.out.println("2 - update");
+                        
+                         cat.setId(Integer.parseInt(request.getParameter("id")));
+                         cat.setValue(request.getParameter("value"));
+                            
+                        System.out.println("id cat -> " + cat.getId() + " < label > " + cat.getValue());
                         CategorieModel.modifyCategorie(conn, cat);
-                        System.out.println("id cat ->"+ cat.getId());
                     break;                        
                               
                 }        
