@@ -1,6 +1,7 @@
 package serlets;
 
 import beans.Categorie;
+import beans.Tags;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -12,13 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CategorieModel;
+import model.TagsModel;
 import utils.DataManager;
 
 /**
  *
  * @author Arkesys
  */
-@WebServlet(name = "DatasServlet", urlPatterns = {"/datasCategorie"})
+@WebServlet(name = "DatasServlet", urlPatterns = {"/datasCategorie","/datasTags"})
 
 public class DatasServlet extends HttpServlet {
 
@@ -81,9 +83,56 @@ public class DatasServlet extends HttpServlet {
                     
                     request.getRequestDispatcher("/WEB-INF/view/categories/datas.jsp").forward(request, response);
                     
-                }//action
+                }//action 
                 
-            }//patern
+            }//patern -> datasCategorie
+            else if(path.equals("/datasTags")) {
+                
+                System.out.println("datasTags");
+                
+                Tags t;
+                
+                //controle action
+                if(request.getParameter("action") != null){
+                    
+                    switch(Integer.parseInt(request.getParameter("action"))){
+                        
+                        case 1:
+                            System.out.println("1");
+                            break;
+                        
+                            //selectionne l'élément
+                        case 2:
+                            System.out.println("2");
+                            t = new Tags();
+                            t.setId(Integer.parseInt(request.getParameter("id")));
+                            t.setValue(request.getParameter("value"));
+                            
+                            TagsModel.getTagsByid(conn, t, "tags");
+                            System.out.println("->" + request.getParameter("id"));
+                            System.out.println("->" + request.getParameter("value"));
+                            request.setAttribute("t", t);
+                            break;
+                        case 3:
+                            System.out.println("del -> 3");
+                            t = new Tags();
+                            t.setId(Integer.parseInt(request.getParameter("id")));
+                            t.setValue(request.getParameter("value"));
+                            
+                            TagsModel.getTagsByid(conn, t, "tags");
+                            System.out.println("->" + request.getParameter("id"));
+                            System.out.println("->" + request.getParameter("value"));
+                            request.setAttribute("t", t);
+                            
+                            break;
+                              
+                    }
+                    
+                    request.getRequestDispatcher("/WEB-INF/view/tags/datas.jsp").forward(request, response);
+                    
+                }//action 
+                
+            }
             
         }//session
         else {
@@ -106,6 +155,7 @@ public class DatasServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         String path = request.getServletPath();
+        System.out.println("-> " + path);
         if (path.equals("/datasCategorie")) {
             
             //instance de l'entité concernnné
@@ -142,12 +192,53 @@ public class DatasServlet extends HttpServlet {
                         
                 }        
                     
+             request.getRequestDispatcher("/categories").forward(request, response);       
+            }//action
+            
+        }//patern -> datasCategorie
+        else if(path.equals("/datasTags")) {
+            
+            //instance de l'entité concernnné
+            Tags t = new Tags();
+            
+            //nourriture de l'obet depuis le formulaire
+            t.setValue(request.getParameter("value"));
+            
+            if(request.getParameter("action") != null){
+                
+                switch(Integer.parseInt(request.getParameter("action"))){
+                        
+                    case 1:
+                        System.out.println("1 - insert");
+                        TagsModel.insert(conn, t);
+                        //System.out.println("id cat ->"+ cat.getId());
+                    break;
+                    case 2:
+                        System.out.println("2 - update");
+                        
+                         t.setId(Integer.parseInt(request.getParameter("id")));
+                         t.setValue(request.getParameter("value"));
+                            
+                        System.out.println("id cat -> " + t.getId() + " < label > " + t.getValue());
+                        TagsModel.modify(conn, t);
+                    break;
+                    case 3:
+                        System.out.println("3 - delation " + request.getParameter("id"));
+                        
+                        t.setId(Integer.parseInt(request.getParameter("id")));
+                        TagsModel.delete(conn, t);
+                        //System.out.println("id cat ->"+ cat.getId());
+                    break;                        
+                        
+                }        
+                    
                     
             }//action
             
-        }//patern
+            request.getRequestDispatcher("/tags").forward(request, response);
+        }
         
-        request.getRequestDispatcher("/categories").forward(request, response);
+        
     }
 
     

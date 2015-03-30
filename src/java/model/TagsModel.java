@@ -13,42 +13,167 @@ import java.util.List;
  * @author Moi
  */
 public class TagsModel {
-    
-     public static List<Tags> getTags(Connection con){
 
-	String sql = "SELECT * FROM tags";
+    /**
+     * SELECT
+     *
+     * @param con
+     * @param cat
+     */
+    public static void getTagsByid(Connection con, Tags t, String table) {
 
-	List<Tags> Tags = new ArrayList<>();
+        String sql = "SELECT * FROM " + table + " where id=?";
 
-	try {
+        try {
 
-		PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
 
-		try{
-			ResultSet rs = stmt.executeQuery();
+            stmt.setInt(1, t.getId());
+            System.out.println("Tags selectionner " + t.getId());
+            try {
+                ResultSet rs = stmt.executeQuery();
 
-			try{
+                try {
 
-				while (rs.next()){
+                    while (rs.next()) {
 
-					Tags t = new Tags();                                        
-					t.setId(rs.getInt("id"));
-					t.setValue(rs.getString("value"));
+                        t.setValue(rs.getString("value"));
 
-					Tags.add(t); //ajout à l'arraylist
+                    }
 
-				}
+                } finally {
+                    rs.close();
+                }
 
-			} finally{rs.close();}
+            } finally {
+                stmt.close();
+            }
 
-		} finally{stmt.close();}
+        } catch (SQLException e) {
+            System.out.println("ex " + e);
+        }
 
-	} catch(SQLException ex){
-            
+    }
+
+    /**
+     * UPDATE
+     *
+     * @param con
+     * @param t
+     */
+    public static void modify(Connection con, Tags t) {
+
+        //String sql = "update categories set value=? WHERE id=?";
+        String sql = "UPDATE tags SET value=? WHERE id=?";
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, t.getValue());
+            stmt.setLong(2, t.getId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("ex " + e);
+        }
+
+    }
+
+    /**
+     * INSERT
+     *
+     * @param con
+     * @param cat
+     */
+    public static void insert(Connection con, Tags t) {
+
+        String sql = "insert into tags (value) values (?)";
+         //String sql = "INSERT INTO categories (value) VALUES ('coucou')";
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, t.getValue());
+            System.out.println("ajout -> " + t.getValue());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("ex " + e);
+        }
+
+    }
+
+    /**
+     * *
+     * delete
+     *
+     * @param con
+     * @param t
+     */
+    public static void delete(Connection con, Tags t) {
+
+        String sql = "DELETE FROM tags WHERE id=?";
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setLong(1, t.getId());
+            stmt.executeUpdate();
+            System.out.println("del -> " + t.getId());
+
+        } catch (SQLException e) {
+            System.out.println("ex " + e);
+        }
+
+    }
+
+    /**
+     *
+     * @param con
+     * @return
+     */
+    public static List<Tags> getTags(Connection con) {
+
+        String sql = "SELECT * FROM tags";
+
+        List<Tags> Tags = new ArrayList<>();
+
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            try {
+                ResultSet rs = stmt.executeQuery();
+
+                try {
+
+                    while (rs.next()) {
+
+                        Tags t = new Tags();
+                        t.setId(rs.getInt("id"));
+                        t.setValue(rs.getString("value"));
+
+                        Tags.add(t); //ajout à l'arraylist
+
+                    }
+
+                } finally {
+                    rs.close();
+                }
+
+            } finally {
+                stmt.close();
+            }
+
+        } catch (SQLException ex) {
+
             System.out.println("e" + ex);
 
-	}
-        
+        }
+
         return Tags;
 
     }
