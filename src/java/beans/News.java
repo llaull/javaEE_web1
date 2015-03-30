@@ -2,6 +2,8 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,8 +14,13 @@ public class News implements Serializable{
     private int id;
     private String titre;
     private String txt;
+    private Categorie categorie;
+    
+    private List<Tags> newsTags;
 
     public News() {
+        categorie = new Categorie();
+        newsTags = new ArrayList<>();
     }
 
     /**
@@ -58,7 +65,32 @@ public class News implements Serializable{
         this.txt = txt;
     }
 
-    
-   
-    
+    /**
+     * @return the categorie
+     */
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    /**
+     * @param categorie the categorie to set
+     */
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    /**
+     * @return the newsTags
+     */
+    public List<Tags> getNewsTags() {
+        return newsTags;
+    }
+
+    /**
+     * @param newsTags the newsTags to set
+     */
+    public void setNewsTags(List<Tags> newsTags) {
+        this.newsTags = newsTags;
+    }
+
 }

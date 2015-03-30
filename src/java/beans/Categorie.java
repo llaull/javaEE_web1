@@ -40,4 +40,8 @@ public class Categorie implements Serializable{
         this.value = value;
     }
 
+    public Object setId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

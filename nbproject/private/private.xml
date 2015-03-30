@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/MyDocs/JAVASE/web1/src/java/model/CategorieModel.java</file>
             <file>file:/C:/MyDocs/JAVASE/web1/src/java/serlets/DatasServlet.java</file>
-            <file>file:/C:/MyDocs/JAVASE/web1/src/java/serlets/InsideServlet.java</file>
+            <file>file:/C:/MyDocs/JAVASE/web1/src/java/beans/Categorie.java</file>
+            <file>file:/C:/MyDocs/JAVASE/web1/web/WEB-INF/view/news/index.jsp</file>
+            <file>file:/C:/MyDocs/JAVASE/web1/web/WEB-INF/view/news/datas.jsp</file>
+            <file>file:/C:/MyDocs/JAVASE/web1/src/java/beans/News.java</file>
             <file>file:/C:/MyDocs/JAVASE/web1/src/java/model/NewsModel.java</file>
             <file>file:/C:/MyDocs/JAVASE/web1/web/WEB-INF/view/categories/datas.jsp</file>
         </group>

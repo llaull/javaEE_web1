@@ -22,7 +22,7 @@ public class TagsModel {
      */
     public static void getTagsByid(Connection con, Tags t, String table) {
 
-        String sql = "SELECT * FROM " + table + " where id=?";
+        String sql = "SELECT n.id, n.titre, n.txt, c.value FROM news AS n LEFT JOIN categories AS c ON n.categorie_ID = c.id;";
 
         try {
 

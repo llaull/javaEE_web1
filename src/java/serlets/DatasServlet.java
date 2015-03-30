@@ -1,10 +1,13 @@
 package serlets;
 
 import beans.Categorie;
+import beans.News;
 import beans.Tags;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CategorieModel;
+import model.NewsModel;
 import model.TagsModel;
 import utils.DataManager;
 
@@ -20,7 +24,7 @@ import utils.DataManager;
  *
  * @author Arkesys
  */
-@WebServlet(name = "DatasServlet", urlPatterns = {"/datasCategorie","/datasTags"})
+@WebServlet(name = "DatasServlet", urlPatterns = {"/datasCategorie","/datasTags","/datasNews"})
 
 public class DatasServlet extends HttpServlet {
 
@@ -132,6 +136,58 @@ public class DatasServlet extends HttpServlet {
                     
                 }//action 
                 
+            }//patern -> datasCategorie
+            else if(path.equals("/datasNews")) {
+                
+                System.out.println("datasNews");
+                
+                News n;
+                List<Categorie> categories = new ArrayList<>();
+                categories = CategorieModel.getCategories(conn);
+                
+                //controle action
+                if(request.getParameter("action") != null){
+                    
+                    switch(Integer.parseInt(request.getParameter("action"))){
+                        
+                        case 1:
+                            System.out.println("1");
+                            request.setAttribute("listeCategorie", categories);
+                            break;
+                        
+                            //selectionne l'élément
+                        case 2:
+                            System.out.println("modif 2");
+                            n = new News();
+                            n.setId(Integer.parseInt(request.getParameter("id")));
+request.setAttribute("listeCategorie", categories);
+                            
+                            NewsModel.getNewsByid(conn, n);
+                            //System.out.println("> "+n.getCategorie().getId());
+                            
+                            System.out.println("->" + request.getParameter("id"));
+                      
+                            request.setAttribute("n", n);
+                            break;
+                        case 3:
+                            System.out.println("del -> 3");
+                            n = new News();
+                            n.setId(Integer.parseInt(request.getParameter("id")));
+                            n.setTitre(request.getParameter("titre"));
+                            
+                            NewsModel.getNews(conn);
+                            System.out.println("->" + request.getParameter("id"));
+                            //System.out.println("->" + request.getParameter("titre"));
+                            request.setAttribute("n", n);
+                            
+                            break;
+                              
+                    }
+                    
+                    request.getRequestDispatcher("/WEB-INF/view/news/datas.jsp").forward(request, response);
+                    
+                }//action 
+                
             }
             
         }//session
@@ -236,7 +292,51 @@ public class DatasServlet extends HttpServlet {
             }//action
             
             request.getRequestDispatcher("/tags").forward(request, response);
-        }
+        }//patern -> datasNews
+        else if(path.equals("/datasNews")) {
+            
+            //instance de l'entité concernnné
+            News n = new News();
+            
+            //nourriture de l'obet depuis le formulaire
+            n.setTitre(request.getParameter("titre"));
+            
+            if(request.getParameter("action") != null){
+                
+                switch(Integer.parseInt(request.getParameter("action"))){
+                        
+                    case 1:
+                        System.out.println("1 - insert");
+                        n.setTitre(request.getParameter("titre"));
+                        n.setTxt(request.getParameter("txt"));
+                        n.getCategorie().setId(Integer.parseInt(request.getParameter("categorie")));
+                        NewsModel.insert(conn, n);
+                        System.out.println("id cat -> "+ request.getParameter("titre"));
+                    break;
+                    case 2:
+                        System.out.println("2 - update");
+                        /*
+                         n.setId(Integer.parseInt(request.getParameter("id")));
+                         n.setTitre(request.getParameter("value"));
+                            
+                        //System.out.println("id cat -> " + n.getId() + " < label > " + n.setTitre());
+                        NewsModel.modify(conn, n);*/
+                    break;
+                    case 3:
+                        System.out.println("3 - delation " + request.getParameter("id"));
+                        
+                        n.setId(Integer.parseInt(request.getParameter("id")));
+                        NewsModel.delete(conn, n);
+                        System.out.println("id cat ->"+ n.getId());
+                    break;                        
+                        
+                }        
+                    
+                    
+            }//action
+            
+            request.getRequestDispatcher("/news").forward(request, response);
+        }//
         
         
     }
