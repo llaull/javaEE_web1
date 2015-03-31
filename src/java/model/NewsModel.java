@@ -39,6 +39,7 @@ public class NewsModel {
                     while (rs.next()) {
 
                         n.setTitre(rs.getString("titre"));
+                        n.setTxt(rs.getNString("txt"));
                         n.getCategorie().setId(rs.getInt("idCat"));
 
                     }
@@ -63,17 +64,19 @@ public class NewsModel {
      * @param con
      * @param t
      */
-    public static void modify(Connection con, Tags t) {
+    public static void modify(Connection con, News n) {
 
-        //String sql = "update categories set value=? WHERE id=?";
-        String sql = "UPDATE tags SET value=? WHERE id=?";
+        String sql = "UPDATE news SET titre=?, txt=?, categorie_ID=? WHERE id=?";
+       
 
         try {
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, t.getValue());
-            stmt.setLong(2, t.getId());
+            stmt.setString(1, n.getTitre());
+            stmt.setString(2, n.getTxt());
+            stmt.setInt(3, n.getCategorie().getId());
+            stmt.setInt(4, n.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

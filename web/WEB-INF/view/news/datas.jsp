@@ -20,7 +20,7 @@
         <!-- formulaire d'ajout et modification -->
         <form role="form" action="<%=application.getContextPath()%>/datasNews" method="post">
 
-            <input type="hidden" id="id" name="id" value="${requestScope.t.id}"/>
+            <input type="hidden" id="id" name="id" value="${requestScope.n.id}"/>
             <input type="hidden" name="action" value="${param.action}"/>
 
             <div class="form-group">
