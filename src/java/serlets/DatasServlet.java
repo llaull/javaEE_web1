@@ -4,7 +4,6 @@ import beans.Categorie;
 import beans.News;
 import beans.Tags;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +93,7 @@ public class DatasServlet extends HttpServlet {
                 System.out.println("datasTags");
 
                 Tags t;
+                News n;
 
                 //controle action
                 if (request.getParameter("action") != null) {
@@ -163,7 +163,6 @@ public class DatasServlet extends HttpServlet {
                             request.setAttribute("listeCategorie", categories);
 
                             NewsModel.getNewsByid(conn, n);
-                            //System.out.println("> "+n.getCategorie().getId());
 
                             System.out.println("->" + request.getParameter("id"));
 
@@ -178,8 +177,34 @@ public class DatasServlet extends HttpServlet {
 
                             NewsModel.getNews(conn);
                             System.out.println("->" + request.getParameter("id"));
-                            //System.out.println("->" + request.getParameter("titre"));
                             request.setAttribute("n", n);
+
+                            break;
+
+                        case 4:
+                            System.out.println("les tagzzzzzzzzzzzzz");
+                            n = new News();
+                            n.setId(Integer.parseInt(request.getParameter("id")));
+                            
+                            request.setAttribute("n", n);
+
+                            List<Tags> listeTags = new ArrayList<>();
+                            listeTags = TagsModel.getTags(conn);
+
+                            NewsModel.getNewsTags(conn, n);
+                            
+                            System.out.println("->" + n.getNewsTags().size());
+
+                            for (int i = 0; i < n.getNewsTags().size(); i++) {
+                                for (int j = 0; j < listeTags.size(); j++) {
+                                    if (listeTags.get(j).getValue().equals(n.getNewsTags().get(i).getValue())) {
+                                        listeTags.remove(j);
+                                    }
+
+                                }
+
+                            }
+                            request.setAttribute("listeTags",listeTags);
 
                             break;
 
@@ -214,10 +239,10 @@ public class DatasServlet extends HttpServlet {
         System.out.println("-> " + path);
         if (path.equals("/datasCategorie")) {
 
-            //instance de l'entité concernnné
+            //instance de l'entité concernée
             Categorie cat = new Categorie();
 
-            //nourriture de l'obet depuis le formulaire
+            //nourriture de l'objet depuis le formulaire
             cat.setValue(request.getParameter("value"));
 
             if (request.getParameter("action") != null) {
@@ -252,10 +277,10 @@ public class DatasServlet extends HttpServlet {
         }//patern -> datasCategorie
         else if (path.equals("/datasTags")) {
 
-            //instance de l'entité concernnné
+            //instance de l'entité concernée
             Tags t = new Tags();
 
-            //nourriture de l'obet depuis le formulaire
+            //nourriture de l'objet depuis le formulaire
             t.setValue(request.getParameter("value"));
 
             if (request.getParameter("action") != null) {
@@ -290,10 +315,10 @@ public class DatasServlet extends HttpServlet {
         }//patern -> datasNews
         else if (path.equals("/datasNews")) {
 
-            //instance de l'entité concernnné
+            //instance de l'entité concernée
             News n = new News();
 
-            //nourriture de l'obet depuis le formulaire
+            //nourriture de l'objet depuis le formulaire
             n.setTitre(request.getParameter("titre"));
 
             if (request.getParameter("action") != null) {
@@ -325,6 +350,11 @@ public class DatasServlet extends HttpServlet {
                         n.setId(Integer.parseInt(request.getParameter("id")));
                         NewsModel.delete(conn, n);
                         System.out.println("id cat ->" + n.getId());
+                        break;
+                    case 4:
+                        System.out.println("les posty");
+                        
+
                         break;
 
                 }

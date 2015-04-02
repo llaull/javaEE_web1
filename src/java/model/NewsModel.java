@@ -21,9 +21,56 @@ public class NewsModel {
      * @param con
      * @param cat
      */
+    public static void getNewsTags(Connection con, News n) {
+
+        String sql = "SELECT tags.id, tags.value FROM tags INNER JOIN news_tag ON news_tag.tag_ID = tags.id WHERE news_tag.news_ID=?";
+
+        //List<Tags> listeTags = new ArrayList<>();
+        try {
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, n.getId());
+            System.out.println("News selectionner " + n.getId());
+            try {
+                ResultSet rs = stmt.executeQuery();
+
+                try {
+
+                    while (rs.next()) {
+                        
+                        Tags tag = new Tags();
+                        
+                        tag.setId(rs.getInt("id"));
+                        tag.setValue(rs.getString("value"));
+                        
+                        n.getNewsTags().add(tag);
+                        
+                    }
+
+                } finally {
+                    rs.close();
+                }
+
+            } finally {
+                stmt.close();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ex " + e);
+        }
+
+    }
+    
+    /**
+     * SELECT
+     *
+     * @param con
+     * @param cat
+     */
     public static void getNewsByid(Connection con, News n) {
 
-        String sql = "SELECT n.id, n.titre, n.txt, c.value, c.id AS idCat FROM news AS n INNER JOIN categories AS c ON n.categorie_ID = c.id WHERE n.id=?";
+        String sql = "SELECT n.id, n.titre, n.txt, c.value AS nameCat, c.id AS idCat, (select GROUP_CONCAT(value) FROM news_tag INNER JOIN tags as t on t.id = news_tag.tag_ID where news_tag.news_ID = n.id) FROM news AS n INNER JOIN categories AS c ON n.categorie_ID = c.id WHERE n.id=?";
 
         try {
 
@@ -39,8 +86,9 @@ public class NewsModel {
                     while (rs.next()) {
 
                         n.setTitre(rs.getString("titre"));
-                        n.setTxt(rs.getNString("txt"));
+                        n.setTxt(rs.getString("txt"));
                         n.getCategorie().setId(rs.getInt("idCat"));
+                        n.getCategorie().setValue(rs.getString("nameCat"));
 
                     }
 
@@ -138,7 +186,7 @@ public class NewsModel {
 
     public static List<News> getNews(Connection con) {
 
-        String sql = "SELECT * FROM news";
+        String sql = "SELECT n.id, n.titre, n.txt, c.value AS nameCat, c.id AS idCat, (select GROUP_CONCAT(value) FROM news_tag INNER JOIN tags as t on t.id = news_tag.tag_ID where news_tag.news_ID = n.id) AS tags FROM news AS n INNER JOIN categories AS c ON n.categorie_ID = c.id";
 
         List<News> News = new ArrayList<>();
 
@@ -156,6 +204,8 @@ public class NewsModel {
                         News n = new News();
                         n.setId(rs.getInt("id"));
                         n.setTitre(rs.getString("titre"));
+                        n.getCategorie().setValue(rs.getString("nameCat"));
+                        n.setNewsTagsString(rs.getString("tags"));
 
                         News.add(n); //ajout à l'arraylist
 

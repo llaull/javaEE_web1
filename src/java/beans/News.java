@@ -15,6 +15,7 @@ public class News implements Serializable{
     private String titre;
     private String txt;
     private Categorie categorie;
+    private String newsTagsString;
     
     private List<Tags> newsTags;
 
@@ -92,5 +93,20 @@ public class News implements Serializable{
     public void setNewsTags(List<Tags> newsTags) {
         this.newsTags = newsTags;
     }
+
+    /**
+     * @return the NewsTagsString
+     */
+    public String getNewsTagsString() {
+        return newsTagsString;
+    }
+
+    /**
+     * @param NewsTagsString the NewsTagsString to set
+     */
+    public void setNewsTagsString(String NewsTagsString) {
+        this.newsTagsString = NewsTagsString;
+    }
+
 
 }

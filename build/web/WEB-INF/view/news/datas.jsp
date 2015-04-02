@@ -27,7 +27,7 @@
                 <label>Categorie de la news
                     <select id="categorie" name="categorie" class="form-control">
                         <c:forEach var="row" items="${requestScope.listeCategorie}">
-                        <option ${(row.id == requestScope.n.categorie.id)?"selected='select'":""} value="${row.id}">${row.value}</option>
+                            <option ${(row.id == requestScope.n.categorie.id)?"selected='select'":""} value="${row.id}">${row.value}</option>
                         </c:forEach>
                     </select>
                 </label> 
@@ -40,9 +40,9 @@
 
             <div class="form-group">
                 <label for="txt">texte de la news</label>
-                <input type="input" id="txt" class="form-control" name="txt" value="${requestScope.n.txt}">
+                <textarea class="form-control" rows="5" id="txt" name="txt">${requestScope.n.txt}</textarea>
             </div>
-            
+
             <button type="submit" class="btn btn-success">Submit</button>
             <a href="<%=application.getContextPath()%>/news"><button type="button" class="btn btn-warning">Annuler</button></a>
         </form>
@@ -65,6 +65,47 @@
 
         </form>
 
+    </c:if>
+    <c:if test="${param.action == 4}">
+        <div>tags de : <strong>${requestScope.n.titre}</strong></div>
+        <div class="form-group col-sm-6">
+            <label>Tags disponnible
+                <select id="allTags" size="7" name="allTags" class="form-control"  ondblclick="javascript:process(this.id)">
+                    <c:forEach var="row" items="${requestScope.listeTags}">
+                        <option id="${row.id}" value="${row.id}">${row.value}</option>
+                    </c:forEach>
+                </select>
+            </label> 
+        </div>
+        
+        <div class="form-group col-sm-6">
+            <label>Tags de la news
+                <select id="newTags" name="newTags" size="7" multiple class="form-control" ondblclick="javascript:process(this.id)">
+                    <c:forEach var="row" items="${requestScope.n.newsTags}">
+                        <option id="${row.id}" value="${row.id}">${row.value}</option>
+                    </c:forEach>
+                </select>
+            </label> 
+        </div>
+        <script type="text/javascript">
+            var node = null;
+            var liste = document.getElementById("newTags");
+            var reservoir = document.getElementById("allTags");
+            function process(source) {
+               
+                node = document.getElementById(document.getElementById(source).value);
+                console.log(node);
+                if (source == "allTags") {
+                    //if (node)
+                        reservoir.removeChild(node);
+                    liste.appendChild(node);
+                } else {
+                    //if (node)
+                        liste.removeChild(node);
+                    reservoir.appendChild(node);
+                }
+            }
+        </script>
     </c:if>
 
 </div>

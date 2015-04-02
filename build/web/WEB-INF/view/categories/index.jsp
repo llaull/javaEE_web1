@@ -4,7 +4,8 @@
 <div class="container">
 
   <h1>Catégories</h1>
-  <a href="<%=application.getContextPath()%>/datasCategorie?action=1"><button type="button" class="btn btn-success">Ajouter</button></a>
+  
+  <a href="${pageContext.request.contextPath}/datasCategorie?action=1"><button type="button" class="btn btn-success">Ajouter</button></a>
   <table class="table table-hover">
     <thead>
       <tr>
