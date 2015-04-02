@@ -229,5 +229,51 @@ public class NewsModel {
 
     }
 
+    public static void updateNewsTags(Connection con, News n) {
+        
+        String sql = "DELETE FROM news_tag WHERE news_ID=?";
+        
+        try {
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, n.getId());
+            System.out.println("je del " + n.getId());
+            
+            try {
+                
+                stmt.executeUpdate();
+                
+            } finally{ stmt.close(); }
+            
+        } catch (SQLException e) {
+            System.out.println("e => " + e);
+            
+        }
+        
+        String sql1 = "INSERT INTO news_tag (tag_ID, news_ID) VALUES (?, ?)";
+        
+        try {
+            
+            PreparedStatement stmt = con.prepareStatement(sql1);
+            stmt.setInt(2, n.getId());
+            
+            try {
+                
+                for (int i = 0; i < n.getNewsTags().size(); i++) {
+                    
+                    stmt.setInt(1, n.getNewsTags().get(i).getId());
+                    stmt.executeUpdate();
+                    System.out.println("->" + sql1);
+                    
+                }
+                
+            } finally{ stmt.close(); }
+            
+        } catch (SQLException e) {
+            System.out.println("e => " + e);
+            
+        }
+    }
+
 
 }

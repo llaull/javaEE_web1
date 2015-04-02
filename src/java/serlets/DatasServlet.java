@@ -354,7 +354,25 @@ public class DatasServlet extends HttpServlet {
                     case 4:
                         System.out.println("les posty");
                         
+                        n.setId(Integer.parseInt(request.getParameter("id")));
+                        
+                        String[] newsTags = request.getParameterValues("newTags");
+                        
+                        if(newsTags != null ){
+                            for (int i = 0; i < newsTags.length; i++) {
 
+                                n.getNewsTags().add(new Tags());
+                                n.getNewsTags().get(i).setId(Integer.parseInt(newsTags[i]));
+
+                            }
+                        }
+                        
+                        //affiche les id 
+                        for (Tags i : n.getNewsTags()) {
+                            System.out.println("->" + i.getId());
+                        }
+                        
+                        NewsModel.updateNewsTags(conn,n);
                         break;
 
                 }
